@@ -3,6 +3,7 @@ import { join } from "node:path";
 import database from "/infra/database.js";
 
 async function migrations(req, res) {
+  if (req.method != "GET" && req.method != "POST") return res.status(404).end();
   const dbClient = await database.getNewClient();
   const defaultMigrationsOptions = {
     dbClient,
